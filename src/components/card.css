@@ -1,0 +1,10 @@
+.card__title{
+    font-weight: 700;
+}
+.spacing{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.clickable{
+    cursor: pointer;
+}
