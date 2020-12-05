@@ -1,39 +1,36 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Card, CardImg, CardImgOverlay, CardTitle} from 'reactstrap';
 import './card.css';
 
 
-class Menu extends Component {
+ function RenderMenuItem({ dish, onClick }) {
+    return(
+            <Card className="clickable spacing" onClick={() => onClick(dish.id)}>
+                <CardImg width="100%" src={dish.image} alt={dish.name} />
+                <CardImgOverlay>
+                    <CardTitle className="card__title">{dish.name}</CardTitle>
+                </CardImgOverlay>
+            </Card>
+    );
+}
    
-  
-    render() {
+const Menu = (props) => {
 
-        const menu = this.props.dishes.map((dish) => {
-            // key - to uniquely identify each item
-            return(
-                <div key={dish.id} className="col-lg-6 col-xs-12 col-sm-6 mt-5">
-                    <Card className="clickable spacing" onClick={() => this.props.onClick(dish.id)}>
-                        <CardImg width="100%" src={dish.image} alt={dish.name} />
-                        <CardImgOverlay>
-                            <CardTitle className="card__title">{dish.name}</CardTitle>
-                        </CardImgOverlay>
-                    </Card>
-                </div>
-            );
-        });
-
-        return(
-            <div className="container">
-                <div className="row">
-                    {menu}
-                </div>
-                {/* <div className="row">
-                    <div className="col-12">
-                        <DishDetail selectedDish={this.state.selectedDish} dish={this.dish}/>   
-                    </div>
-                </div> */}
+    const menu = props.dishes.map((dish) => {
+        return (
+            <div key={dish.id} className="col-lg-6 col-xs-12 col-sm-6 mt-5">
+                <RenderMenuItem dish={dish} onClick={props.onClick} />
             </div>
         )
-    }
-}
+    });
+
+    return(
+        <div className="container">
+            <div className="row">
+                {menu}
+            </div>
+        </div>
+    )
+}  
+  
 export default Menu;
