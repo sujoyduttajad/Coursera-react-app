@@ -1,15 +1,17 @@
 import React from 'react';
-import {Card, CardImg, CardImgOverlay, CardTitle} from 'reactstrap';
+import {Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import './card.css';
-
+import { Link } from 'react-router-dom'
 
  function RenderMenuItem({ dish, onClick }) {
     return(
-            <Card className="clickable spacing" onClick={() => onClick(dish.id)}>
-                <CardImg width="100%" src={dish.image} alt={dish.name} />
-                <CardImgOverlay>
-                    <CardTitle className="card__title">{dish.name}</CardTitle>
-                </CardImgOverlay>
+            <Card className="clickable spacing">
+                <Link to={`/menu/${dish.id}`} >
+                    <CardImg width="100%" src={dish.image} alt={dish.name} />
+                    <CardImgOverlay>
+                        <CardTitle className="card__title">{dish.name}</CardTitle>
+                    </CardImgOverlay>
+                </Link>
             </Card>
     );
 }
@@ -19,13 +21,23 @@ const Menu = (props) => {
     const menu = props.dishes.map((dish) => {
         return (
             <div key={dish.id} className="col-lg-6 col-xs-12 col-sm-6 mt-5">
-                <RenderMenuItem dish={dish} onClick={props.onClick} />
+                <RenderMenuItem dish={dish} />
             </div>
         )
     });
 
     return(
         <div className="container">
+            <div className='row'>
+                <Breadcrumb>
+                    <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                    <BreadcrumbItem active>Menu</BreadcrumbItem>
+                </Breadcrumb>  
+                <div className='col-12'>
+                    <h3>Menu</h3>
+                    <hr />
+                </div>
+            </div>
             <div className="row">
                 {menu}
             </div>
