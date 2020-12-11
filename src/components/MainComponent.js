@@ -55,7 +55,7 @@ class Main extends React.Component {
 
       const AboutUs = () => {
         return (
-          <About leaders={this.state.leaders.map((leader) => leader)} />
+          <About leaders={this.state.leaders} />
         )
       }
 
