@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.2.2",
     "bootstrap": "^4.5.3",
     "bootstrap-social": "^5.1.1",
+    "cross-fetch": "^3.0.6",
     "dateformat": "^4.0.0",
     "font-awesome": "^4.7.0",
     "react": "^17.0.1",

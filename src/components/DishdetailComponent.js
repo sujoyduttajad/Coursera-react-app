@@ -4,13 +4,15 @@ import dateFormat from 'dateformat';
 import { Link } from 'react-router-dom'
 import CommentFormComponent from './CommentFormComponent';
 import Loading from './LoadingComponent';
+import { baseURL } from '../shared/baseURL';
+
 
     function RenderDish({dish}){
         if(dish != null) {
             return(
                 <div className="col-lg-6 col-md-6 col-xs-12 spacing">
                 <Card>
-                    <CardImg width="100%" src={dish.image} alt={dish.name} />
+                    <CardImg width="100%" src={baseURL + dish.image} alt={dish.name} />
                     <CardBody>
                         <CardTitle className="card__title">{dish.name}</CardTitle>
                         <CardText>{dish.description}</CardText>

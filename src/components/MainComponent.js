@@ -8,7 +8,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addComment, fetchDishes } from '../redux/ActionCreators'
+import { addComment, fetchComments, fetchDishes, fetchPromos } from '../redux/ActionCreators'
 import { actions } from 'react-redux-form';
 
 class Main extends React.Component {
@@ -21,6 +21,8 @@ class Main extends React.Component {
 
     componentDidMount() {
       this.props.fetchDishes();
+      this.props.fetchComments();
+      this.props.fetchPromos();
     } 
   
     // onDishSelect(dishId){
@@ -33,9 +35,11 @@ class Main extends React.Component {
         return(
           <Home dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
           dishesLoading={this.props.dishes.isLoading}
-          dishesErrMess={this.props.dishes.errMess}
-          promotion={this.props.promotions.filter((dish) => dish.featured)[0]}
-          leader={this.props.leaders.filter((dish) => dish.featured)[0]} /> 
+          dishErrMess={this.props.dishes.errMess}
+          promotion={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
+          promosLoading={this.props.promotions.isLoading}
+          promosErrMess={this.props.promotions.errMess}
+          leader={this.props.leaders.filter((leader) => leader.featured)[0]} /> 
         );
       }
 
@@ -44,7 +48,8 @@ class Main extends React.Component {
           <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]} 
           isLoading={this.props.dishes.isLoading}
           errMess={this.props.dishes.errMess}
-          comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
+          comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
+          commentsErrMess={this.props.comments.errMess}
           addComment={this.props.addComment}
           />
         )
@@ -87,7 +92,9 @@ class Main extends React.Component {
     // dispatch with the parameters are supplied to the mapDispatchToProps function as parameters and which can be used within our component
     addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
     fetchDishes: () => {  dispatch(fetchDishes()) },
-    resetFeedbackForm: () => { dispatch(actions.reset('feedback')) }
+    resetFeedbackForm: () => { dispatch(actions.reset('feedback')) },
+    fetchComments: () => {  dispatch(fetchComments()) },
+    fetchPromos: () => {  dispatch(fetchPromos()) }
   });
   
   export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
