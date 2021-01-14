@@ -8,7 +8,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addComment, fetchComments, fetchDishes, fetchPromos } from '../redux/ActionCreators'
+import { postComment, fetchComments, fetchDishes, fetchPromos } from '../redux/ActionCreators'
 import { actions } from 'react-redux-form';
 
 class Main extends React.Component {
@@ -50,7 +50,7 @@ class Main extends React.Component {
           errMess={this.props.dishes.errMess}
           comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
           commentsErrMess={this.props.comments.errMess}
-          addComment={this.props.addComment}
+          postComment={this.props.postComment}
           />
         )
       }
@@ -88,9 +88,9 @@ class Main extends React.Component {
     }
   }
   const mapDispatchToProps = (dispatch) => ({
-    // the action creator(addComment) will return an action object, that action object is given as a parameter to the dispatch function here
+    // the action creator(postComment) will return an action object, that action object is given as a parameter to the dispatch function here
     // dispatch with the parameters are supplied to the mapDispatchToProps function as parameters and which can be used within our component
-    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+    postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
     fetchDishes: () => {  dispatch(fetchDishes()) },
     resetFeedbackForm: () => { dispatch(actions.reset('feedback')) },
     fetchComments: () => {  dispatch(fetchComments()) },
