@@ -28,9 +28,10 @@ class Contact extends Component {
         
     }
 
-    handleSubmit(values) {
-        console.log("Current State is: " + JSON.stringify(values));
-        alert("Current State is: " + JSON.stringify(values));
+    handleSubmit(values) { 
+        this.props.postFeedback(values.firstName, values.lastName, values.telnum, values.email, values.agree, values.contactType, values.message);
+        console.log("Thankyou for your Feedback: " + JSON.stringify(values));
+        alert("Thankyou for your Feedback!\n " + JSON.stringify(values));
         this.props.resetFeedbackForm();
     }
 
